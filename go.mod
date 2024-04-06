@@ -1,3 +1,3 @@
-module github.com/Yandelf00/cpg.git
+module cryptopals
 
 go 1.22.0
