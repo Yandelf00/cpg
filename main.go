@@ -2,16 +2,28 @@ package main
 
 import (
 	"cryptopals/hextobase"
+	"cryptopals/xor"
 	"fmt"
 )
 
 func main() {
-	todecode := []byte("49276d206b696c6c696e6720796f757220627261696e206c696b65206120706f69736f6e6f7573206d757368726f6f6d")
+	todecode := []byte("1c0111001f010100061a024b53535009181c")
+	todecode_two := []byte("686974207468652062756c6c277320657965")
 	decoded, err := hextobase.DecodeHex(todecode)
 	if err != nil {
 		fmt.Println("error decoding")
 		return
 	}
-	base_encoded := hextobase.EncodeBase(decoded)
-	fmt.Printf("%s", base_encoded)
+	decoded_two, err := hextobase.DecodeHex(todecode_two)
+	if err != nil {
+		fmt.Println("error decoding")
+		return
+	}
+	xored_byte, err := xor.Xor_bytes(decoded, decoded_two)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	encoded_xored_byte := hextobase.EncodeHex(xored_byte)
+	fmt.Printf("%s", encoded_xored_byte)
 }
