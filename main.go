@@ -1,39 +1,54 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
-	"unicode"
-	"unicode/utf8"
+	"log"
+	"os"
 
-	"github.com/abadojack/whatlanggo"
+	"github.com/Yandelf00/cpg/setOne"
 )
 
-// isMeaningfulText checks if the input contains enough printable/graphic characters
-func isMeaningfulText(input string) bool {
-	printableCount := 0
-	for _, char := range input {
-		if unicode.IsPrint(char) && unicode.IsGraphic(char) {
-			printableCount++
+func main() {
+	// Open the input file
+	file, err := os.Open("input.txt")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer file.Close()
+
+	// Create the output file
+	outputFile, err := os.Create("output.txt")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer outputFile.Close()
+
+	// Create a buffered writer for the output file
+	writer := bufio.NewWriter(outputFile)
+
+	// Read the input file line by line
+	scanner := bufio.NewScanner(file)
+	for scanner.Scan() {
+		// Decrypt the line using your BhattacharyyaSingleByteXORCipher function
+		decrypted := setOne.BhattacharyyaSingleByteXORCipher(scanner.Text())
+		// Write the decrypted line to the output file
+		_, err := writer.WriteString(decrypted + "\n")
+		if err != nil {
+			log.Fatal(err)
 		}
 	}
-	// Require at least 50% of the characters to be printable/graphic
-	return float64(printableCount)/float64(utf8.RuneCountInString(input)) >= 0.5
-}
 
-func main() {
-	input := "T◄§PåqjF�Zö0Ll�Bå↕�♦n3�_w"
-
-	// Preprocess the input to check if it's meaningful
-	if !isMeaningfulText(input) {
-		fmt.Println("Input contains too many non-printable or non-graphic characters.")
-		return
+	// Flush the buffered writer to ensure all data is written to the file
+	err = writer.Flush()
+	if err != nil {
+		log.Fatal(err)
 	}
 
-	// Detect the language
-	info := whatlanggo.Detect(input)
-	if info.Lang == whatlanggo.Eng {
-		fmt.Println("This is in English.")
-	} else {
-		fmt.Println("It ain't in English.")
+	// Check for scanner errors
+	if err := scanner.Err(); err != nil {
+		log.Fatal(err)
 	}
+
+	fmt.Println("Decryption complete. Results written to output.txt.")
 }
