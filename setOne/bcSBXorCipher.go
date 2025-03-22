@@ -11,7 +11,7 @@ type BhattaRes struct {
 	score  float64
 }
 
-func BhattacharyyaSingleByteXORCipher(input string) string {
+func BhattacharyyaSingleByteXORCipher(input string) (string, float64) {
 	var decrypted []string
 	var bc float64
 	bhattaRes := BhattaRes{
@@ -35,7 +35,7 @@ func BhattacharyyaSingleByteXORCipher(input string) string {
 		}
 	}
 
-	return bhattaRes.phrase
+	return bhattaRes.phrase, bhattaRes.score
 }
 
 func BhattaCalculateFrequency(phrase string) map[rune]float64 {
