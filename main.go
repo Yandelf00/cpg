@@ -9,7 +9,7 @@ import (
 	"github.com/Yandelf00/cpg/setOne"
 )
 
-func main() {
+func solveBc() {
 	var result string
 	var resultScore float64
 	file, err := os.Open("input.txt")
@@ -29,4 +29,16 @@ func main() {
 	fmt.Println(result)
 
 	fmt.Println("Decryption complete. Results written to output.txt.")
+}
+
+var burning = `Burning 'em, if you ain't quick and nimble
+I go crazy when I hear a cymbal`
+
+func main() {
+	var test []byte
+	test = setOne.RepeatingXorKey(burning, "ICE")
+
+	for _, el := range test {
+		fmt.Printf("%02x", el)
+	}
 }
