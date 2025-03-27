@@ -1,6 +1,11 @@
 package main
 
-import "github.com/Yandelf00/cpg/setOne"
+import (
+	"log"
+	"os"
+
+	"github.com/Yandelf00/cpg/setOne"
+)
 
 // func solveBc() {
 // 	var result string
@@ -37,7 +42,13 @@ import "github.com/Yandelf00/cpg/setOne"
 // }
 
 func main() {
-	inptOne := "this is a test"
-	inptTwo := "wokka wokka!!!"
-	setOne.HammingDistance(inptOne, inptTwo)
+	data, err := os.ReadFile("breakRKXORinpt.txt")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	setOne.BreakRKXor(data)
+	// inptOne := "this is a test"
+	// inptTwo := "wokka wokka!!!"
+	// setOne.HammingDistance(inptOne, inptTwo)
 }
