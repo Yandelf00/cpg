@@ -9,14 +9,15 @@ import (
 type BhattaRes struct {
 	phrase string
 	score  float64
+	key    byte
 }
 
-func BhattacharyyaSingleByteXORCipher(input string) (string, float64) {
-	var decrypted []string
+func BhattacharyyaSingleByteXORCipher(input string) (string, float64, byte) {
 	var bc float64
 	bhattaRes := BhattaRes{
 		phrase: "",
 		score:  0.0,
+		key:    0,
 	}
 
 	for i := 0; i <= 255; i++ {
@@ -24,18 +25,15 @@ func BhattacharyyaSingleByteXORCipher(input string) (string, float64) {
 		if err != nil {
 			log.Fatal(err)
 		}
-		decrypted = append(decrypted, string(res))
-	}
-
-	for _, phrase := range decrypted {
-		bc = BhattaPhraseAnalysis(phrase)
+		bc = BhattaPhraseAnalysis(string(res))
 		if bc > bhattaRes.score {
-			bhattaRes.phrase = phrase
+			bhattaRes.phrase = string(res)
 			bhattaRes.score = bc
+			bhattaRes.key = byte(i)
 		}
 	}
 
-	return bhattaRes.phrase, bhattaRes.score
+	return bhattaRes.phrase, bhattaRes.score, bhattaRes.key
 }
 
 func BhattaCalculateFrequency(phrase string) map[rune]float64 {

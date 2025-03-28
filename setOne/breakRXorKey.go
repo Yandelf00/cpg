@@ -1,12 +1,14 @@
 package setOne
 
 import (
+	"fmt"
 	"math/bits"
 )
 
 func BreakRKXor(inpt []byte) {
 	normalizedDistances := []int{100, 100, 100}
 	results := []int{0, 0, 0}
+	keys := [][]byte{}
 	maxKeysize := 60
 
 	for k := 2; k < maxKeysize && 4*k <= len(inpt); k++ {
@@ -38,10 +40,46 @@ func BreakRKXor(inpt []byte) {
 		}
 	}
 
+	for _, el := range results {
+		t_result := ProcessBlocks(inpt, el)
+		key_tmp := []byte{}
+		for _, r_el := range t_result {
+			_, _, key := BhattacharyyaSingleByteXORCipher(string(r_el))
+			key_tmp = append(key_tmp, key)
+		}
+		keys = append(keys, key_tmp)
+	}
+
+	for _, el := range keys {
+		fmt.Println(string(el))
+	}
+
 }
 
-func Transpose(inpt []byte, blockSize int) {
+func ProcessBlocks(inpt []byte, blockSize int) [][]byte {
+	var result [][]byte
+	fullSize := 0
+	for k := 0; k+blockSize <= len(inpt); k += blockSize {
+		result = append(result, inpt[k:k+blockSize])
+		fullSize++
+	}
+	t_result := Transpose(result, blockSize, fullSize)
 
+	return t_result
+}
+
+func Transpose(mtrx [][]byte, blockSize int, fullSize int) [][]byte {
+	result := [][]byte{}
+
+	for j := 0; j < blockSize; j++ {
+		tmp := []byte{}
+		for i := 0; i < fullSize; i++ {
+			tmp = append(tmp, mtrx[i][j])
+		}
+		result = append(result, tmp)
+	}
+
+	return result
 }
 
 func HammingDistance(inptOne, inptTwo []byte) int {
