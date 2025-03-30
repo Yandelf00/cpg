@@ -41,19 +41,27 @@ func BreakRKXor(inpt []byte) {
 	}
 
 	for _, el := range results {
-		t_result := ProcessBlocks(inpt, el)
-		key_tmp := []byte{}
-		for _, r_el := range t_result {
-			_, _, key := BhattacharyyaSingleByteXORCipher(string(r_el))
-			key_tmp = append(key_tmp, key)
-		}
-		keys = append(keys, key_tmp)
+		fmt.Println(el)
+		// t_result := ProcessBlocks(inpt, el)
+		// key_tmp := []byte{}
+		// for _, r_el := range t_result {
+		// 	_, _, key := BhattacharyyaSingleByteXORCipher(string(r_el))
+		// 	key_tmp = append(key_tmp, key)
+		// }
+		// keys = append(keys, key_tmp)
 	}
-
-	for _, el := range keys {
-		fmt.Println(string(el))
+	t_result := ProcessBlocks(inpt, results[0])
+	key_tmp := []byte{}
+	for _, r_el := range t_result {
+		_, _, key := BhattacharyyaSingleByteXORCipher(string(r_el))
+		key_tmp = append(key_tmp, key)
 	}
+	keys = append(keys, key_tmp)
 
+	for _, key := range keys {
+		decrypted := RepeatingXorBytes(inpt, key) // No string conversion!
+		fmt.Printf("Decrypted: %s\n", decrypted)
+	}
 }
 
 func ProcessBlocks(inpt []byte, blockSize int) [][]byte {

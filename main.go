@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"os"
 
@@ -47,7 +48,15 @@ func main() {
 		log.Fatal(err)
 	}
 
-	setOne.BreakRKXor(data)
+	dataDecoded, err := setOne.Base64Decode(data)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Printf("%x", dataDecoded) // Prints raw hex (e.g., "08584826...")
+
+	// setOne.BreakRKXor(dataDecoded)
+
 	// inptOne := "this is a test"
 	// inptTwo := "wokka wokka!!!"
 	// setOne.HammingDistance(inptOne, inptTwo)
