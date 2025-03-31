@@ -29,3 +29,12 @@ func FixedXorKey(xoredOne string, key byte) ([]byte, error) {
 	}
 	return b, nil
 }
+
+func FixedXorKeyByte(xoredOne []byte, key byte) ([]byte, error) {
+	n := len(xoredOne)
+	b := make([]byte, n)
+	for i := 0; i < n; i++ {
+		b[i] = xoredOne[i] ^ key
+	}
+	return b, nil
+}

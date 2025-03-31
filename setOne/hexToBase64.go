@@ -18,6 +18,12 @@ func HexToBase64(input string) ([]byte, error) {
 	return dest, nil
 }
 
+func Base64Encode(inpt []byte) []byte {
+	dst := make([]byte, base64.StdEncoding.EncodedLen(len(inpt)))
+	base64.StdEncoding.Encode(dst, inpt)
+	return dst
+}
+
 func Base64Decode(inpt []byte) ([]byte, error) {
 	dst := make([]byte, base64.StdEncoding.DecodedLen(len(inpt)))
 	n, err := base64.StdEncoding.Decode(dst, inpt)
