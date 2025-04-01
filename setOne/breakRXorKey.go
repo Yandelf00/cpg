@@ -9,12 +9,12 @@ func BreakRKXor(inpt []byte) {
 	normalizedDistances := []int{100, 100, 100}
 	results := []int{0, 0, 0}
 	keys := [][]byte{}
-	maxKeysize := 60
+	maxKeysize := 40
 
 	for k := 2; k < maxKeysize && 4*k <= len(inpt); k++ {
 		totalDist := 0
 		numPairs := 0
-		offsets := []int{0, k, 2 * k, 3 * k}
+		offsets := []int{0, k, 2 * k, 3 * k, 4 * k, 5 * k, 6 * k, 7 * k}
 		for _, offset := range offsets {
 			if offset+2*k > len(inpt) {
 				continue
@@ -24,9 +24,10 @@ func BreakRKXor(inpt []byte) {
 			totalDist += HammingDistance(firstBlock, secondBlock)
 			numPairs++
 		}
-
+		// fmt.Println("key totaldist", numPairs, k, totalDist)
+		// resNormalisedfloat := float64(float64(totalDist) / (float64(numPairs) * float64(k)))
 		resNormalised := totalDist / (numPairs * k)
-
+		// fmt.Printf("resNormalised %f\n", resNormalisedfloat)
 		for i := 0; i < 3; i++ {
 			if resNormalised < normalizedDistances[i] {
 				for j := 2; j > i; j-- {
@@ -50,7 +51,7 @@ func BreakRKXor(inpt []byte) {
 		// }
 		// keys = append(keys, key_tmp)
 	}
-	t_result := ProcessBlocks(inpt, results[1])
+	t_result := ProcessBlocks(inpt, results[2])
 	key_tmp := []byte{}
 	for _, r_el := range t_result {
 		_, _, key := BhattacharyyaSingleByteXORCipherByte(r_el)
@@ -68,6 +69,7 @@ func BreakRKXor(inpt []byte) {
 		// fmt.Printf("this is the key as string %s\n", key)
 		decrypted := RepeatingXorBytes(inpt, key)
 		fmt.Printf("Decrypted: %s\n", decrypted)
+		fmt.Println("the key :", string(key))
 	}
 	// decrypted := RepeatingXorBytes(inpt, keys[0])
 	// fmt.Printf("Decrypted: %s\n", decrypted)

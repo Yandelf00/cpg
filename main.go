@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"os"
 
@@ -77,6 +76,11 @@ import (
 // var testtwo = "1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736"
 
 func main() {
+	// test := []byte{29, 77, 2, 19, 26, 31, 14, 1, 78, 22, 0, 73, 84, 67, 78}
+	// fmt.Println(string(test))
+
+	// decrypted, _, _ := setOne.BhattacharyyaSingleByteXORCipherByte(test)
+	// fmt.Println(string(decrypted))
 	// pompom, err := setOne.HexDecode(testtwo)
 	// if err != nil {
 	// 	log.Fatal(err)
@@ -122,19 +126,31 @@ func main() {
 
 	// fmt.Println(string(resDec))
 	data, err := os.ReadFile("breakRKXORinpt.txt")
-	// data, err := os.ReadFile("test.txt")
+	// // data, err := os.ReadFile("test.txt")
+	// // data, err := os.ReadFile("testtwo.txt")
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
+	// inpt := "Repeating XOR is tricky but solvable with the right approach!"
+
+	// xoredinpt := setOne.RepeatingXorBytes([]byte(inpt), []byte("GOLANG"))
+	// fmt.Println(string(xoredinpt))
+
+	// dataEncoded := setOne.Base64Encode([]byte(xoredinpt))
+
+	// fmt.Println(string(dataEncoded))
+	// data := "Kg4XFFQbBBFfQh1bQh0XU0IcF1QeCxVfQh1bQh0XU0IcF1QeCxVfQh1bQh0XU0IcF1QeCxVfQh1bQh0XU0IcF1QeCxVfQh1bQh0XU0IcF1QeCxVfQh1bQh0XU0IcF1QeCw=="
+
+	dataDecoded, err := setOne.Base64Decode([]byte(data))
+
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	dataDecoded, err := setOne.Base64Decode(data)
-	fmt.Println(dataDecoded)
+	// result := setOne.RepeatingXorBytes(dataDecoded, []byte("GOLANG"))
+	// fmt.Println(string(result))
 
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	setOne.BreakRKXor(string(dataDecoded))
+	setOne.BreakRKXor(dataDecoded)
 	// for i := 0; i <= 255; i++ {
 	// 	fmt.Println(byte(i))
 	// }
