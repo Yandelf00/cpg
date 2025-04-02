@@ -62,11 +62,6 @@ func BhattaCalculateFrequencyByte(phrase string) map[rune]float64 {
 }
 
 func BhattaPhraseAnalysisByte(phrase string) float64 {
-	// for _, char := range strings.ToLower(phrase) {
-	// 	if _, exists := validChars[char]; !exists {
-	// 		return 0.0
-	// 	}
-	// }
 	frequency := BhattaCalculateFrequency(phrase)
 	normalizedFrequency := NormalizeFrequency(frequency)
 	normalizedEndlishFreq := NormalizeFrequency(englishFrequencies)
