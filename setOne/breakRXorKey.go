@@ -55,9 +55,7 @@ func BreakRKXor(inpt []byte) {
 	key_tmp := []byte{}
 	for _, r_el := range t_result {
 		_, _, key := BhattacharyyaSingleByteXORCipherByte(r_el)
-		// fmt.Println(key)
 		key_tmp = append(key_tmp, key)
-		// fmt.Println(key_tmp)
 	}
 	keys = append(keys, key_tmp)
 
@@ -65,8 +63,6 @@ func BreakRKXor(inpt []byte) {
 		for _, el := range key {
 			fmt.Println("id", el)
 		}
-		// fmt.Println("this is the key in bytes ", key)
-		// fmt.Printf("this is the key as string %s\n", key)
 		decrypted := RepeatingXorBytes(inpt, key)
 		fmt.Printf("Decrypted: %s\n", decrypted)
 		fmt.Println("the key :", string(key))

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"os"
 
@@ -76,6 +77,21 @@ import (
 // var testtwo = "1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736"
 
 func main() {
+	dataAes, err := os.ReadFile("aesecbdecrypt.txt")
+	if err != nil {
+		log.Fatal(err)
+	}
+	dataAesDecoded, err := setOne.Base64Decode([]byte(dataAes))
+	if err != nil {
+		log.Fatal(err)
+	}
+	key := []byte("YELLOW SUBMARINE")
+	res, err := setOne.AesEcbDecrypt(dataAesDecoded, key)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(string(res))
+
 	// test := []byte{29, 77, 2, 19, 26, 31, 14, 1, 78, 22, 0, 73, 84, 67, 78}
 	// fmt.Println(string(test))
 
@@ -125,7 +141,7 @@ func main() {
 	// }
 
 	// fmt.Println(string(resDec))
-	data, err := os.ReadFile("breakRKXORinpt.txt")
+	// data, err := os.ReadFile("breakRKXORinpt.txt")
 	// // data, err := os.ReadFile("test.txt")
 	// // data, err := os.ReadFile("testtwo.txt")
 	// if err != nil {
@@ -141,16 +157,16 @@ func main() {
 	// fmt.Println(string(dataEncoded))
 	// data := "Kg4XFFQbBBFfQh1bQh0XU0IcF1QeCxVfQh1bQh0XU0IcF1QeCxVfQh1bQh0XU0IcF1QeCxVfQh1bQh0XU0IcF1QeCxVfQh1bQh0XU0IcF1QeCxVfQh1bQh0XU0IcF1QeCw=="
 
-	dataDecoded, err := setOne.Base64Decode([]byte(data))
+	// dataDecoded, err := setOne.Base64Decode([]byte(data))
 
-	if err != nil {
-		log.Fatal(err)
-	}
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
 
 	// result := setOne.RepeatingXorBytes(dataDecoded, []byte("GOLANG"))
 	// fmt.Println(string(result))
 
-	setOne.BreakRKXor(dataDecoded)
+	// setOne.BreakRKXor(dataDecoded)
 	// for i := 0; i <= 255; i++ {
 	// 	fmt.Println(byte(i))
 	// }
