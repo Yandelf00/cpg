@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	"bufio"
 	"log"
 	"os"
 
@@ -77,20 +77,45 @@ import (
 // var testtwo = "1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736"
 
 func main() {
-	dataAes, err := os.ReadFile("aesecbdecrypt.txt")
+
+	//detect aes in ecb mode
+	lnm := 0
+	file, err := os.Open("detectaes.txt")
 	if err != nil {
 		log.Fatal(err)
 	}
-	dataAesDecoded, err := setOne.Base64Decode([]byte(dataAes))
-	if err != nil {
+	defer file.Close()
+
+	scanner := bufio.NewScanner(file)
+	for scanner.Scan() {
+		lnm++
+		aesDecoded, err := setOne.HexDecode(scanner.Text())
+		if err != nil {
+			log.Fatal(err)
+		}
+		setOne.DetectAes(aesDecoded, lnm)
+	}
+
+	if err := scanner.Err(); err != nil {
 		log.Fatal(err)
 	}
-	key := []byte("YELLOW SUBMARINE")
-	res, err := setOne.AesEcbDecrypt(dataAesDecoded, key)
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Println(string(res))
+
+	//decoding aes in acb mode
+	// dataAes, err := os.ReadFile("aesecbdecrypt.txt")
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
+	// dataAesDecoded, err := setOne.Base64Decode([]byte(dataAes))
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
+	// key := []byte("YELLOW SUBMARINE")
+	// res, err := setOne.AesEcbDecrypt(dataAesDecoded, key)
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
+	// fmt.Println(string(res))
+	//------------------------------------------------
 
 	// test := []byte{29, 77, 2, 19, 26, 31, 14, 1, 78, 22, 0, 73, 84, 67, 78}
 	// fmt.Println(string(test))
