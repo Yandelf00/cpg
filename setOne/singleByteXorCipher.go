@@ -1,5 +1,7 @@
 package setOne
 
+// this is a global variable that contains the
+// english letter frequencies
 var englishFrequencies = map[rune]float64{
 	'a': 8.167, 'b': 1.492, 'c': 2.782, 'd': 4.253,
 	'e': 12.702, 'f': 2.228, 'g': 2.015, 'h': 6.094,
