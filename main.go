@@ -1,9 +1,7 @@
 package main
 
 import (
-	"bufio"
-	"log"
-	"os"
+	"fmt"
 
 	"github.com/Yandelf00/cpg/setOne"
 )
@@ -78,27 +76,40 @@ import (
 
 func main() {
 
+	//testing single byte xor cipher 
+	res, _, _:= setOne.BhattacharyyaSingleByteXORCipher("1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736")
+
+	fmt.Println(res)
+
+	//testing FixedXor
+	// test, err := setOne.FixedXor("1c0111001f010100061a024b53535009181c", "686974207468652062756c6c277320657965")
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
+	// fmt.Println(test)
+	// fmt.Println(string(test))
+	// fmt.Printf("%x", test)
 	//detect aes in ecb mode
-	lnm := 0
-	file, err := os.Open("detectaes.txt")
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer file.Close()
-
-	scanner := bufio.NewScanner(file)
-	for scanner.Scan() {
-		lnm++
-		aesDecoded, err := setOne.HexDecode(scanner.Text())
-		if err != nil {
-			log.Fatal(err)
-		}
-		setOne.DetectAes(aesDecoded, lnm)
-	}
-
-	if err := scanner.Err(); err != nil {
-		log.Fatal(err)
-	}
+	// lnm := 0
+	// file, err := os.Open("detectaes.txt")
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
+	// defer file.Close()
+	//
+	// scanner := bufio.NewScanner(file)
+	// for scanner.Scan() {
+	// 	lnm++
+	// 	aesDecoded, err := setOne.HexDecode(scanner.Text())
+	// 	if err != nil {
+	// 		log.Fatal(err)
+	// 	}
+	// 	setOne.DetectAes(aesDecoded, lnm)
+	// }
+	//
+	// if err := scanner.Err(); err != nil {
+	// 	log.Fatal(err)
+	// }
 
 	//decoding aes in acb mode
 	// dataAes, err := os.ReadFile("aesecbdecrypt.txt")
