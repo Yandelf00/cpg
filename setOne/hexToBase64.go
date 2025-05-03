@@ -29,7 +29,7 @@ func Base64Encode(inpt []byte) []byte {
 }
 
 //takes a slice of bytes encoded in base64
-//and decodes it
+//and decodes it (use this in the challenge 6 of set one)
 func Base64Decode(inpt []byte) ([]byte, error) {
 	dst := make([]byte, base64.StdEncoding.DecodedLen(len(inpt)))
 	n, err := base64.StdEncoding.Decode(dst, inpt)
