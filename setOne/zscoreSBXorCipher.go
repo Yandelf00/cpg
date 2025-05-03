@@ -49,11 +49,10 @@ func CalulatePhraseScore(zScore map[rune]float64) float64 {
 	return phraseScore
 }
 
-
 // ZScoreSingleByteXORCipher tries all A-Z single-byte keys to decrypt the input string,
 // then scores each output using z-score analysis to find the most English-like result.
 func ZScoreSingleByteXORCipher(input string) string {
-	var alpha int = 65 // ASCII value for 'A'
+	var alpha int = 65     // ASCII value for 'A'
 	var decrypted []string // Stores decrypted candidates
 	var decryptedZScore map[rune]float64
 	var decryptedPhraseScore float64

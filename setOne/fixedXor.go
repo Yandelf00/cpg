@@ -2,7 +2,7 @@ package setOne
 
 import "errors"
 
-//takes two equal-length buffers and produces their XOR combination.
+// takes two equal-length buffers and produces their XOR combination.
 func FixedXor(xoredOne, xoredTwo string) ([]byte, error) {
 	inptOne, err := HexDecode(xoredOne) //decodes the first xored input
 	if err != nil {
@@ -23,8 +23,8 @@ func FixedXor(xoredOne, xoredTwo string) ([]byte, error) {
 	return b, nil
 }
 
-//takes a hex encoded string, decodes it and xores it 
-//against a single given key
+// takes a hex encoded string, decodes it and xores it
+// against a single given key
 func FixedXorKey(xoredOne string, key byte) ([]byte, error) {
 	inptOne, err := HexDecode(xoredOne) //decodes the hex encoded string
 	if err != nil {
@@ -38,7 +38,7 @@ func FixedXorKey(xoredOne string, key byte) ([]byte, error) {
 	return b, nil
 }
 
-//takes a slice of bytes and xores it against a key
+// takes a slice of bytes and xores it against a key
 func FixedXorKeyByte(xoredOne []byte, key byte) ([]byte, error) {
 	n := len(xoredOne)
 	b := make([]byte, n)

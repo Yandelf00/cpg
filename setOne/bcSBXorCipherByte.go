@@ -1,6 +1,6 @@
 /*
 	This file contains the main functions as bcSBXorCipher.go, the only
-	difference is that this file takes a slice of byte as input to 
+	difference is that this file takes a slice of byte as input to
 	decrypte the message instead of a string (which should always be the case
 	following cryptopals rules)
 */

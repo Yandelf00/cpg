@@ -6,21 +6,20 @@ import (
 	"strings"
 )
 
-//Struct that holds the decrypted phrase,
-//its Bhattacharyya coefficient(score),
-//and the key with which it was decrypted.
+// Struct that holds the decrypted phrase,
+// its Bhattacharyya coefficient(score),
+// and the key with which it was decrypted.
 type BhattaRes struct {
 	phrase string
 	score  float64
 	key    byte
 }
 
-
-//This function uses bhattacharyya coefficient
-//to find the decrypted message, it takes a string input.
-//The point of this function is to detect the english sentence
-//because we don't wanna look at all the possible outputs and 
-//find the english sentence by ourselves
+// This function uses bhattacharyya coefficient
+// to find the decrypted message, it takes a string input.
+// The point of this function is to detect the english sentence
+// because we don't wanna look at all the possible outputs and
+// find the english sentence by ourselves
 func BhattacharyyaSingleByteXORCipher(input string) (string, float64, byte) {
 	var bc float64
 	bhattaRes := BhattaRes{
@@ -45,8 +44,7 @@ func BhattacharyyaSingleByteXORCipher(input string) (string, float64, byte) {
 	return bhattaRes.phrase, bhattaRes.score, bhattaRes.key
 }
 
-
-//This function calculates the frequency of the letters in our decoded string (non normalized)
+// This function calculates the frequency of the letters in our decoded string (non normalized)
 func BhattaCalculateFrequency(phrase string) map[rune]float64 {
 	var frequencies = map[rune]float64{
 		'a': 0, 'b': 0, 'c': 0, 'd': 0,
@@ -68,15 +66,15 @@ func BhattaCalculateFrequency(phrase string) map[rune]float64 {
 
 	for char := range frequencies {
 		frequencies[char] = (frequencies[char] / float64(totalLetter)) * 100
-	}//gives the percentage of each letter
+	} //gives the percentage of each letter
 	return frequencies
 }
 
-//This function analyses the decrypted sentences,
-//and calculates its bhattacharyya coefficient(BC).
+// This function analyses the decrypted sentences,
+// and calculates its bhattacharyya coefficient(BC).
 func BhattaPhraseAnalysis(phrase string) float64 {
-	frequency := BhattaCalculateFrequency(phrase) //calucates frequency of letters
-	normalizedFrequency := NormalizeFrequency(frequency) //normalizes the frequency
+	frequency := BhattaCalculateFrequency(phrase)                   //calucates frequency of letters
+	normalizedFrequency := NormalizeFrequency(frequency)            //normalizes the frequency
 	normalizedEndlishFreq := NormalizeFrequency(englishFrequencies) //normalizes the english frequencies
 
 	bc := 0.0 //Initialization of the BC
@@ -84,15 +82,14 @@ func BhattaPhraseAnalysis(phrase string) float64 {
 	for char, observed := range normalizedFrequency {
 		expected, exists := normalizedEndlishFreq[char]
 		if exists {
-			bc += math.Sqrt(observed * expected) 
+			bc += math.Sqrt(observed * expected)
 		}
 	} //Goes through the characters in the derypted output via normalizedFrequency
-		//and checks if the character is an english character, then take the frequencies
-		//of the characters in both the maps and calucates the BC
+	//and checks if the character is an english character, then take the frequencies
+	//of the characters in both the maps and calucates the BC
 
 	return bc
 }
-
 
 // NormalizeFrequency takes a map of runes to their relative frequencies and
 // returns a new map where all frequencies are normalized (sum to 1.0).
@@ -109,7 +106,7 @@ func NormalizeFrequency(input map[rune]float64) map[rune]float64 {
 	for _, freq := range input {
 		total += freq
 	}
-	
+
 	// Create a new map to store the normalized frequencies
 	normalizedFreq := make(map[rune]float64)
 

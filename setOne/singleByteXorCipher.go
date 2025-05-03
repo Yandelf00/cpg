@@ -1,12 +1,12 @@
 package setOne
 
-//This is a global variable that contains the
-//english letter frequencies
-//this variable is wrong tho, as the sum of
-//frequencies is 118, thats why i normalize it
-//in another function, and it's actually better to
-//use correct frequencies and have the normalization ready
-//so it's more efficient(but it works with my algorithms so 
+// This is a global variable that contains the
+// english letter frequencies
+// this variable is wrong tho, as the sum of
+// frequencies is 118, thats why i normalize it
+// in another function, and it's actually better to
+// use correct frequencies and have the normalization ready
+// so it's more efficient(but it works with my algorithms so
 // i am keeping it)
 var englishFrequencies = map[rune]float64{
 	'a': 8.167, 'b': 1.492, 'c': 2.782, 'd': 4.253,

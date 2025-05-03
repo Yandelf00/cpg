@@ -5,7 +5,6 @@ import (
 	"math/bits"
 )
 
-
 // BreakRKXor attempts to break a repeating-key XOR cipher.
 // It finds the 3 most likely key sizes based on normalized Hamming distance,
 // then transposes the ciphertext blocks and solves each column as a single-byte XOR.
@@ -17,7 +16,6 @@ func BreakRKXor(inpt []byte) {
 	// Stores recovered keys for the 3 key sizes
 	keys := [][]byte{}
 	maxKeysize := 40
-
 
 	// Loop over candidate key sizes (from 2 to 40)
 	for k := 2; k < maxKeysize && 4*k <= len(inpt); k++ {
