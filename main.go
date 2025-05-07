@@ -1,6 +1,11 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"log"
+
+	"github.com/Yandelf00/cpg/settwo"
+)
 
 // func challsix(){
 // 	dat, err := os.ReadFile("breakRKXORinpt.txt")
@@ -16,5 +21,9 @@ import "fmt"
 // }
 
 func main() {
-	fmt.Println("test")
+	res, err := settwo.PKCSPadding("YELLOW SUBMARINE", 20)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Printf("%q\n", res)
 }
